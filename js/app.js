@@ -12,6 +12,7 @@ const App = {
   renderItem(person) {
     const li = document.createElement('li');
     li.innerHTML = `${person.name}`;
+    li.dataset.id = person.id;
     const deleteButton = document.createElement('button');
     deleteButton.innerHTML = 'Delete';
     deleteButton.addEventListener('click', this.deleteItem);
@@ -40,6 +41,10 @@ const App = {
     }
   },
 
+  prependChild(parent, child) {
+    parent.insertBefore(child, parent.firstChild);
+  },
+
   handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -47,12 +52,12 @@ const App = {
       name: form.personName.value,
       id: this.max + 1,
     }
-    this.max++;
     this.people.push(person);
     const list = document.querySelector('ul#personList');
     const li = this.renderItem(person);
-    list.insertBefore(li, list.getElementsByTagName("li")[0]);
-    form.personName.value = '';
+    this.prependChild(list, li);
+    form.reset();
+    this.max++;
   },
 }
 
