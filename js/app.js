@@ -5,18 +5,23 @@ const App = {
 
   init() {
     this.max = 0;
+    this.setupEventListeners();
+  },
+
+  setupEventListeners() {
     const personForm = document.querySelector('form#new-person');
     personForm.addEventListener('submit', (e) => this.handleSubmit(e));
+    //document.querySelector('button.remove').addEventListener('click', (e) => alert('yep'));
   },
 
   renderItem(person) {
-    const li = document.createElement('li');
-    li.innerHTML = `${person.name}`;
+    const template = document.querySelector('.person.template');
+    const li = template.cloneNode(true);
+    li.querySelector('.person-name').textContent = person.name;
     li.dataset.id = person.id;
-    const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = 'Delete';
-    deleteButton.addEventListener('click', this.deleteItem);
-    li.appendChild(deleteButton);
+    this.removeClassName(li, 'template');
+    li.querySelector('button.remove').addEventListener('click', (e) => this.removePerson(e));
+
     const promoteButton = document.createElement('button');
     promoteButton.innerHTML = 'Promote';
     promoteButton.addEventListener('click', this.promoteItem);
@@ -25,8 +30,12 @@ const App = {
   },
 
   deleteItem(e) {
-    e.preventDefault();
     e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+  },
+
+  removePerson(e) {
+    const button = e.target;
+    button.closest('.person').remove();
   },
 
   promoteItem(e) {
@@ -45,6 +54,10 @@ const App = {
     parent.insertBefore(child, parent.firstChild);
   },
 
+  removeClassName(elem, className) {
+    elem.className = elem.className.replace(className, '').trim();
+  },
+
   handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -52,8 +65,8 @@ const App = {
       name: form.personName.value,
       id: this.max + 1,
     }
-    this.people.push(person);
-    const list = document.querySelector('ul#personList');
+    this.people.unshift(person);
+    const list = document.querySelector('ul#person-list');
     const li = this.renderItem(person);
     this.prependChild(list, li);
     form.reset();
