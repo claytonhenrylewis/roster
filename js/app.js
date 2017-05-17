@@ -40,10 +40,9 @@ const App = {
   handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
+    const name = e.target.personName.value;
     const details = document.querySelector('.details');
     const list = details.querySelector('ul');
-    const input = form.querySelector('input');
-    const name = input.value;
 
     if (name) {
       const li = this.renderItem(name);
