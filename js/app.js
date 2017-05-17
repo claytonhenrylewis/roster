@@ -48,7 +48,6 @@ const App = {
       const li = this.renderItem(name);
       list.insertBefore(li, list.getElementsByTagName("li")[0]);
     }
-    input.value = '';
   },
 }
 
