@@ -41,17 +41,15 @@ const App = {
   handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
-    if (form.personName.value) {
-      const person = {
-        name: form.personName.value,
-        id: this.max + 1,
-      }
-      this.max++;
-      const list = document.querySelector('ul#personList');
-      const li = this.renderItem(person);
-      list.insertBefore(li, list.getElementsByTagName("li")[0]);
-      form.personName.value = '';
+    const person = {
+      name: form.personName.value,
+      id: this.max + 1,
     }
+    this.max++;
+    const list = document.querySelector('ul#personList');
+    const li = this.renderItem(person);
+    list.insertBefore(li, list.getElementsByTagName("li")[0]);
+    form.personName.value = '';
   },
 }
 
