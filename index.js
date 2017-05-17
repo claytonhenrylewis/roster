@@ -31,6 +31,7 @@ const App = {
     } else {
       button.parentNode.classList.add('promoted');
       button.innerHTML = 'Demote';
+      cornify_add();
     }
   },
 
