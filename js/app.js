@@ -1,6 +1,8 @@
 $(document).foundation()
 
 const App = {
+  people: [],
+
   init() {
     this.max = 0;
     const personForm = document.querySelector('form#new-person');
@@ -46,6 +48,7 @@ const App = {
       id: this.max + 1,
     }
     this.max++;
+    this.people.push(person);
     const list = document.querySelector('ul#personList');
     const li = this.renderItem(person);
     list.insertBefore(li, list.getElementsByTagName("li")[0]);
