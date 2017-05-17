@@ -11,7 +11,6 @@ const App = {
   setupEventListeners() {
     const personForm = document.querySelector('form#new-person');
     personForm.addEventListener('submit', (e) => this.handleSubmit(e));
-    //document.querySelector('button.remove').addEventListener('click', (e) => alert('yep'));
   },
 
   renderItem(person) {
@@ -36,6 +35,8 @@ const App = {
   removePerson(e) {
     const button = e.target;
     button.closest('.person').remove();
+    //remove person from array
+    //this.people.splice(1, 1);
   },
 
   promoteItem(e) {
