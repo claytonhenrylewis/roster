@@ -2,13 +2,14 @@ $(document).foundation()
 
 const App = {
   init() {
+    this.max = 0;
     const personForm = document.querySelector('form#new-person');
     personForm.addEventListener('submit', (e) => this.handleSubmit(e));
   },
 
-  renderItem(name) {
+  renderItem(person) {
     const li = document.createElement('li');
-    li.innerHTML = `${name}`;
+    li.innerHTML = `${person.name}`;
     const deleteButton = document.createElement('button');
     deleteButton.innerHTML = 'Delete';
     deleteButton.addEventListener('click', this.deleteItem);
@@ -40,13 +41,16 @@ const App = {
   handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
-    const name = e.target.personName.value;
-    const details = document.querySelector('.details');
-    const list = details.querySelector('ul');
-
-    if (name) {
-      const li = this.renderItem(name);
+    if (form.personName.value) {
+      const person = {
+        name: form.personName.value,
+        id: this.max + 1,
+      }
+      this.max++;
+      const list = document.querySelector('ul#personList');
+      const li = this.renderItem(person);
       list.insertBefore(li, list.getElementsByTagName("li")[0]);
+      form.personName.value = '';
     }
   },
 }
