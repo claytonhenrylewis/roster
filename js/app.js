@@ -46,6 +46,7 @@ const App = {
     //remove person from array
     this.people = this.people.filter((p) => p.id != id);
     this.updateLocalStorage();
+    this.playSound("ohno");
   },
 
   promotePerson(e) {
@@ -64,6 +65,7 @@ const App = {
     }
     person.promoted = !person.promoted;
     this.updateLocalStorage();
+    this.playSound("coin");
   },
 
   moveUp(e) {
@@ -79,6 +81,7 @@ const App = {
       }
     }
     this.updateLocalStorage();
+    this.playSound("bump");
   },
 
   moveDown(e) {
@@ -96,6 +99,7 @@ const App = {
       }
     }
     this.updateLocalStorage();
+    this.playSound("bump");
   },
 
   prependChild(parent, child) {
@@ -125,6 +129,14 @@ const App = {
     form.reset();
     this.max++;
     this.updateLocalStorage();
+    this.playSound("letsgo");
+  },
+
+  playSound(name) {
+    const audio = document.querySelector(`audio[data-key="${name}"]`);
+    if (!audio) return;
+    audio.currentTime = 0;
+    audio.play();
   },
 }
 

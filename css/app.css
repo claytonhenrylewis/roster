@@ -3,10 +3,16 @@
 }
 
 .person {
-  border: 1px solid #ddd;
+  border: 0px solid #ddd;
 }
 
 .promoted {
   background-color: #E686E8;
   border: 3px solid #FF5969;
+}
+
+body {
+    background-image: url("../img/graph.JPG");
+    background-color: #dddddd;
+    
 }
