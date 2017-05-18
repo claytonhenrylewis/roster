@@ -30,6 +30,11 @@ const App = {
     li.querySelector('button.promote').addEventListener('click', (e) => this.promotePerson(e));
     li.querySelector('button.up').addEventListener('click', (e) => this.moveUp(e));
     li.querySelector('button.down').addEventListener('click', (e) => this.moveDown(e));
+    if (person.promoted) {
+      li.classList.add('callout');
+      li.classList.add('primary');
+      li.querySelector('button.promote').innerHTML = 'Demote';
+    }
     return li;
   },
 
