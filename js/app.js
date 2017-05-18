@@ -9,7 +9,7 @@ const App = {
     this.people = JSON.parse(localStorage.getItem('people')) || [];
     const list = document.querySelector('ul#person-list');
     for (let i = this.people.length - 1; i >= 0; i--) {
-      if (this.people[i] > this.max) this.max = this.people[i];
+      if (this.people[i].id > this.max) this.max = this.people[i].id;
       const li = this.renderItem(this.people[i]);
       this.prependChild(list, li);
     }
