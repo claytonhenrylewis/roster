@@ -6,6 +6,12 @@ const App = {
   init() {
     this.max = 0;
     this.setupEventListeners();
+    this.people = JSON.parse(localStorage.getItem('people')) || [];
+    const list = document.querySelector('ul#person-list');
+    for (let i = this.people.length - 1; i >= 0; i--) {
+      const li = this.renderItem(this.people[i]);
+      this.prependChild(list, li);
+    }
   },
 
   setupEventListeners() {
@@ -108,6 +114,7 @@ const App = {
     this.prependChild(list, li);
     form.reset();
     this.max++;
+    window.localStorage.setItem('people', JSON.stringify(this.people));
   },
 }
 
