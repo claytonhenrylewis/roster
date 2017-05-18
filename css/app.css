@@ -16,3 +16,7 @@ body {
     background-color: #dddddd;
     
 }
+
+.header img {
+  float: left;
+}
