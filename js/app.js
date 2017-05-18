@@ -71,11 +71,12 @@ class Roster {
         let temp = this.people[i];
         this.people[i] = this.people[i - 1];
         this.people[i - 1] = temp;
-        li.parentNode.insertBefore(li, li.previousSibling);
+        li.parentNode.insertBefore(li, li.previousElementSibling);
+        break;
       }
     }
     this.updateLocalStorage();
-    this.playSound("bump");
+    this.playSound("fireball");
   }
 
   moveDown(e) {
@@ -93,7 +94,7 @@ class Roster {
       }
     }
     this.updateLocalStorage();
-    this.playSound("bump");
+    this.playSound("fireball");
   }
 
   prependChild(parent, child) {

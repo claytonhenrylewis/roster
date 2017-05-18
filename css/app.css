@@ -40,3 +40,15 @@ li {
   overflow-x: hidden;
   text-overflow: ellipsis;
 }
+
+.person:first-child button.up {
+  background-color: #ddd;
+  color: #eee;
+  cursor: not-allowed;
+}
+
+.person:nth-last-child(2) button.down {
+  background-color: #ddd;
+  color: #eee;
+  cursor: not-allowed;
+}
