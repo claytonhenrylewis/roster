@@ -20,11 +20,8 @@ const App = {
     li.dataset.id = person.id;
     this.removeClassName(li, 'template');
     li.querySelector('button.remove').addEventListener('click', (e) => this.removePerson(e));
+    li.querySelector('button.promote').addEventListener('click', (e) => this.promotePerson(e));
 
-    const promoteButton = document.createElement('button');
-    promoteButton.innerHTML = 'Promote';
-    promoteButton.addEventListener('click', this.promoteItem);
-    li.appendChild(promoteButton);
     return li;
   },
 
@@ -34,21 +31,30 @@ const App = {
 
   removePerson(e) {
     const button = e.target;
-    button.closest('.person').remove();
+    const li = button.closest('.person');
+    const id = li.dataset.id;
+    li.remove();
+    console.log(id);
     //remove person from array
-    //this.people.splice(1, 1);
+    this.people = this.people.filter((p) => p.id != id);
+    console.log(this.people);
   },
 
-  promoteItem(e) {
+  promotePerson(e) {
     const button = e.target;
-    if (button.parentNode.classList.contains('promoted')) {
-      e.target.parentNode.classList.remove('promoted');
-      e.target.innerHTML = 'Promote';
+    const li = button.closest('.person');
+    const id = li.dataset.id;
+    const person = this.people.filter((p) => p.id == id)[0];
+    if (person.promoted) {
+      li.classList.remove('callout');
+      li.classList.remove('primary');
+      button.innerHTML = 'Promote';
     } else {
-      button.parentNode.classList.add('promoted');
+      li.classList.add('callout');
+      li.classList.add('primary');
       button.innerHTML = 'Demote';
-      cornify_add();
     }
+    person.promoted = !person.promoted;
   },
 
   prependChild(parent, child) {
@@ -65,6 +71,7 @@ const App = {
     const person = {
       name: form.personName.value,
       id: this.max + 1,
+      promoted: false,
     }
     this.people.unshift(person);
     const list = document.querySelector('ul#person-list');

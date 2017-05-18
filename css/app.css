@@ -5,3 +5,8 @@
 .person {
   border: 1px solid #ddd;
 }
+
+.promoted {
+  background-color: #E686E8;
+  border: 3px solid #FF5969;
+}
