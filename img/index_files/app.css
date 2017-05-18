@@ -1,0 +1,42 @@
+.template {
+  visibility: hidden;
+}
+
+.person {
+  border: 3px solid #cccccc;
+  padding: 2rem 1rem;
+}
+
+.person + .person {
+  border-top: 0;
+}
+
+.promoted {
+  background-color: #E686E8;
+}
+
+body {
+    background-image: url("../img/graph.JPG");
+    background-color: #dddddd;
+}
+
+.header img {
+  float: left;
+}
+
+li {
+  font-weight: bold;
+}
+
+.actions {
+  float: right;
+}
+
+.person-name {
+  float: left;
+  line-height: 30px;
+  width: calc(100% - 180px);
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}

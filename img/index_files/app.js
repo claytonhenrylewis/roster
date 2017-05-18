@@ -1,8 +1,9 @@
 $(document).foundation()
 
-class Roster {
-  constructor() {
-    this.people = [];
+const App = {
+  people: [],
+
+  init() {
     this.max = 0;
     this.setupEventListeners();
     this.people = JSON.parse(localStorage.getItem('people')) || [];
@@ -12,12 +13,12 @@ class Roster {
       const li = this.renderItem(this.people[i]);
       this.prependChild(list, li);
     }
-  }
+  },
 
   setupEventListeners() {
     const personForm = document.querySelector('form#new-person');
     personForm.addEventListener('submit', (e) => this.handleSubmit(e));
-  }
+  },
 
   renderItem(person) {
     const template = document.querySelector('.person.template');
@@ -34,7 +35,7 @@ class Roster {
       li.classList.add('promoted');
     }
     return li;
-  }
+  },
 
   removePerson(e) {
     const button = e.target;
@@ -45,7 +46,7 @@ class Roster {
     this.people = this.people.filter((p) => p.id != id);
     this.updateLocalStorage();
     this.playSound("ohno");
-  }
+  },
 
   promotePerson(e) {
     const button = e.target;
@@ -60,7 +61,7 @@ class Roster {
     person.promoted = !person.promoted;
     this.updateLocalStorage();
     this.playSound("coin");
-  }
+  },
 
   moveUp(e) {
     const button = e.target;
@@ -76,7 +77,7 @@ class Roster {
     }
     this.updateLocalStorage();
     this.playSound("bump");
-  }
+  },
 
   moveDown(e) {
     const button = e.target;
@@ -94,19 +95,19 @@ class Roster {
     }
     this.updateLocalStorage();
     this.playSound("bump");
-  }
+  },
 
   prependChild(parent, child) {
     parent.insertBefore(child, parent.firstChild);
-  }
+  },
 
   removeClassName(elem, className) {
     elem.className = elem.className.replace(className, '').trim();
-  }
+  },
 
   updateLocalStorage() {
     window.localStorage.setItem('people', JSON.stringify(this.people));
-  }
+  },
 
   handleSubmit(e) {
     e.preventDefault();
@@ -124,14 +125,24 @@ class Roster {
     this.max++;
     this.updateLocalStorage();
     this.playSound("letsgo");
-  }
+  },
 
   playSound(name) {
     const audio = document.querySelector(`audio[data-key="${name}"]`);
     if (!audio) return;
     audio.currentTime = 0;
     audio.play();
-  }
+  },
 }
 
-const roster = new Roster();
+App.init();
+
+class Dog {
+  bark() {
+    console.log('woof');
+  }
+
+  goFetch () {
+
+  }
+}
