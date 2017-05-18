@@ -21,7 +21,8 @@ const App = {
     this.removeClassName(li, 'template');
     li.querySelector('button.remove').addEventListener('click', (e) => this.removePerson(e));
     li.querySelector('button.promote').addEventListener('click', (e) => this.promotePerson(e));
-
+    li.querySelector('button.up').addEventListener('click', (e) => this.moveUp(e));
+    li.querySelector('button.down').addEventListener('click', (e) => this.moveDown(e));
     return li;
   },
 
@@ -55,6 +56,34 @@ const App = {
       button.innerHTML = 'Demote';
     }
     person.promoted = !person.promoted;
+  },
+
+  moveUp(e) {
+    const button = e.target;
+    const li = button.closest('.person');
+    const id = li.dataset.id;
+    for (let i = 1; i < this.people.length; i++) {
+      if (this.people[i].id == id) {
+        let temp = this.people[i];
+        this.people[i] = this.people[i - 1];
+        this.people[i - 1] = temp;
+        li.parentNode.insertBefore(li, li.previousSibling);
+      }
+    }
+  },
+
+  moveDown(e) {
+    const button = e.target;
+    const li = button.closest('.person');
+    const id = li.dataset.id;
+    for (let i = 0; i < this.people.length - 1; i++) {
+      if (this.people[i].id == id) {
+        let temp = this.people[i + 1];
+        this.people[i + 1] = this.people[i];
+        this.people[i] = temp;
+        li.parentNode.insertBefore(li.nextSibling, li);
+      }
+    }
   },
 
   prependChild(parent, child) {
