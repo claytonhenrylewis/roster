@@ -25,15 +25,14 @@ const App = {
     const li = template.cloneNode(true);
     li.querySelector('.person-name').textContent = person.name;
     li.dataset.id = person.id;
+    li.setAttribute('title', person.name);
     this.removeClassName(li, 'template');
     li.querySelector('button.remove').addEventListener('click', (e) => this.removePerson(e));
     li.querySelector('button.promote').addEventListener('click', (e) => this.promotePerson(e));
     li.querySelector('button.up').addEventListener('click', (e) => this.moveUp(e));
     li.querySelector('button.down').addEventListener('click', (e) => this.moveDown(e));
     if (person.promoted) {
-      li.classList.add('callout');
-      li.classList.add('primary');
-      li.querySelector('button.promote').innerHTML = 'Demote';
+      li.classList.add('promoted');
     }
     return li;
   },
@@ -55,13 +54,9 @@ const App = {
     const id = li.dataset.id;
     const person = this.people.filter((p) => p.id == id)[0];
     if (person.promoted) {
-      li.classList.remove('callout');
-      li.classList.remove('primary');
-      button.innerHTML = 'Promote';
+      li.classList.remove('promoted');
     } else {
-      li.classList.add('callout');
-      li.classList.add('primary');
-      button.innerHTML = 'Demote';
+      li.classList.add('promoted');
     }
     person.promoted = !person.promoted;
     this.updateLocalStorage();
