@@ -9,6 +9,7 @@ const App = {
     this.people = JSON.parse(localStorage.getItem('people')) || [];
     const list = document.querySelector('ul#person-list');
     for (let i = this.people.length - 1; i >= 0; i--) {
+      if (this.people[i] > this.max) this.max = this.people[i];
       const li = this.renderItem(this.people[i]);
       this.prependChild(list, li);
     }
@@ -32,19 +33,14 @@ const App = {
     return li;
   },
 
-  deleteItem(e) {
-    e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-  },
-
   removePerson(e) {
     const button = e.target;
     const li = button.closest('.person');
     const id = li.dataset.id;
     li.remove();
-    console.log(id);
     //remove person from array
     this.people = this.people.filter((p) => p.id != id);
-    console.log(this.people);
+    this.updateLocalStorage();
   },
 
   promotePerson(e) {
@@ -62,6 +58,7 @@ const App = {
       button.innerHTML = 'Demote';
     }
     person.promoted = !person.promoted;
+    this.updateLocalStorage();
   },
 
   moveUp(e) {
@@ -76,20 +73,24 @@ const App = {
         li.parentNode.insertBefore(li, li.previousSibling);
       }
     }
+    this.updateLocalStorage();
   },
 
   moveDown(e) {
     const button = e.target;
     const li = button.closest('.person');
     const id = li.dataset.id;
+    const list = document.querySelector('ul#person-list');
     for (let i = 0; i < this.people.length - 1; i++) {
       if (this.people[i].id == id) {
         let temp = this.people[i + 1];
         this.people[i + 1] = this.people[i];
         this.people[i] = temp;
-        li.parentNode.insertBefore(li.nextSibling, li);
+        list.insertBefore(li.nextSibling, li);
+        break;
       }
     }
+    this.updateLocalStorage();
   },
 
   prependChild(parent, child) {
@@ -98,6 +99,10 @@ const App = {
 
   removeClassName(elem, className) {
     elem.className = elem.className.replace(className, '').trim();
+  },
+
+  updateLocalStorage() {
+    window.localStorage.setItem('people', JSON.stringify(this.people));
   },
 
   handleSubmit(e) {
@@ -114,7 +119,7 @@ const App = {
     this.prependChild(list, li);
     form.reset();
     this.max++;
-    window.localStorage.setItem('people', JSON.stringify(this.people));
+    this.updateLocalStorage();
   },
 }
 
