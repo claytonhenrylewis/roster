@@ -20,3 +20,7 @@ body {
 .header img {
   float: left;
 }
+
+li {
+  font-weight: bold;
+}
