@@ -30,6 +30,7 @@ class Roster {
     li.querySelector('button.promote').addEventListener('click', (e) => this.promotePerson(e));
     li.querySelector('button.up').addEventListener('click', (e) => this.moveUp(e));
     li.querySelector('button.down').addEventListener('click', (e) => this.moveDown(e));
+    li.querySelector('.person-name').addEventListener('keyup', (e) => this.updateName(e));
     if (person.promoted) {
       li.classList.add('promoted');
     }
@@ -95,6 +96,19 @@ class Roster {
     }
     this.updateLocalStorage();
     this.playSound("fireball");
+  }
+
+  updateName(e) {
+    const span = e.target;
+    const li = span.closest('.person');
+    const id = li.dataset.id;
+    for (let i = 0; i < this.people.length - 1; i++) {
+      if (this.people[i].id == id) {
+        this.people[i].name = span.textContent;
+        this.updateLocalStorage();
+        break;
+      }
+    }
   }
 
   prependChild(parent, child) {
