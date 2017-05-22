@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+
 .template {
   visibility: hidden;
 }
@@ -36,7 +38,7 @@ li {
 .person-name {
   float: left;
   line-height: 30px;
-  width: calc(100% - 220px);
+  width: calc(100% - 180px);
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
@@ -52,4 +54,9 @@ li {
   background-color: #ddd;
   color: #eee;
   cursor: not-allowed;
+}
+
+h2 {
+  font-family: 'Abril Fatface', cursive;
+  text-transform: lowercase;
 }
